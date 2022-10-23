@@ -29,42 +29,34 @@
     </div>
  
 
-  <?php
+    <?php
+if($_SERVER["REQUEST_METHOD"] === 'POST') {
+    $data = array_map('trim', $_POST);
+    $errors= [];
+    
+    if(!isset($data['lastname']) || empty($data['lastname']))
+    $errors[] = "Le nom est obligatoire";
+    
+    if(!isset($data['firstname']) || empty($data['firstname']))
+    $errors[] = "Le prénom est obligatoire";
+    
+    if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL))
+    $errors[] = "L'url comporte une erreur";
+    
+    if(!isset($data['phone']) || empty($data['phone']))
+    $errors[] = "Le téléphone est obligatoire";
+    
+    if(!isset($data['subject']) || empty($data['subject']))
+    $errors[] = "Le sujet est obligatoire";
+    
+    if(strlen($data['message']) > 200)
+    $errors[] = "Le message ne doit pas dépasser 200 caractères";
 
-$firstnameErr = $lastnameErr = $emailErr = $phoneErr = $subjectErr =  "";
-$firstname = $lastname = $email = $subject = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-}
-  if (empty($_POST["firstname"])) {
-    $firstnameErr = "Name is required";
-  } else {
-    $firstname = test_input($_POST["firstname"]);
+    if(count($errors) === 0) {
+        header('Location: success.php');
+        die(); 
+    }
   }
-  if (empty($_POST["lastname"])) {
-    $lasttnameErr = "Name is required";
-  } else {
-    $lastname = test_input($_POST["lastname"]);
-  }
-
-  if (empty($_POST["email"])) {
-    $emailErr = "Email is required";
-  }
-   else {
-    $email = test_input($_POST["email"]);
-  }
-
-  if (empty($_POST["phone"])) {
-    $phone = "";
-  } else {
-    $phone = test_input($_POST["phone"]);
-  }
-
-  if (empty($_POST["subject"])) {
-    $subject = "";
-  } else {
-    $subject = test_input($_POST["subject"]);
-  }
-
 ?>
+
  </form>
