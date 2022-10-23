@@ -5,7 +5,7 @@
     </div>
     <div>
       <label  for="last name"> Last name :</label>
-      <input  type="text"  id="last nom"  name="user_last name" required >
+      <input  type="text"  id="last name"  name="user_last name" required >
     </div>
     <div>
       <label  for="courriel">Courriel :</label>
@@ -13,12 +13,12 @@
     </div>
     <div>
       <label  for="phone"> Phone :</label>
-      <input  type="numbers"  id="phone"  name="user_phone">
+      <input  type="numbers"  id="phone"  name="user_phone" required>
     </div>
     <div>
     <div>
       <label  for=""> Subject :</label>
-      <input  type="text"  id="subject"  name="user_subject" >
+      <input  type="text"  id="subject"  name="user_subject" required>
       <select> subject="nom" size="5" </select>
    </div>
       <label  for="message">Message :</label>
@@ -27,4 +27,44 @@
     <div  class="button">
       <button  type="submit">Envoyer votre message</button>
     </div>
-  </form>
+ 
+
+  <?php
+
+$firstnameErr = $lastnameErr = $emailErr = $phoneErr = $subjectErr =  "";
+$firstname = $lastname = $email = $subject = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+}
+  if (empty($_POST["firstname"])) {
+    $firstnameErr = "Name is required";
+  } else {
+    $firstname = test_input($_POST["firstname"]);
+  }
+  if (empty($_POST["lastname"])) {
+    $lasttnameErr = "Name is required";
+  } else {
+    $lastname = test_input($_POST["lastname"]);
+  }
+
+  if (empty($_POST["email"])) {
+    $emailErr = "Email is required";
+  }
+   else {
+    $email = test_input($_POST["email"]);
+  }
+
+  if (empty($_POST["phone"])) {
+    $phone = "";
+  } else {
+    $phone = test_input($_POST["phone"]);
+  }
+
+  if (empty($_POST["subject"])) {
+    $subject = "";
+  } else {
+    $subject = test_input($_POST["subject"]);
+  }
+
+?>
+ </form>
